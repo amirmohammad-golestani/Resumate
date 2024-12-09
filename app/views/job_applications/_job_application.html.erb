@@ -1,0 +1,128 @@
+<div
+  id="job_application-<%= job_application.id %>"
+  class="border-b border-[#9BA3C2]"
+>
+  <button
+    onclick="toggleAccordion(<%= job_application.id %>)" 
+    class="w-full flex justify-between items-center py-5 text-slate-800">
+      <span class="w-32 truncate font-semibold">
+        <% if job_application.attribute_present?(:title) %>
+              <%= job_application.title %>
+        <% else %>
+          <%= render partial: 'common/loading-spinner' %>
+        <% end %>
+      </span>
+    <span class="w-28 flex items-center gap-2">
+      <% case job_application.status %>
+      <% when 'pending' %>
+        <span class="inline-block w-3 h-3 rounded-full bg-yellow-500"></span>
+      <% when 'processing' %>
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+        </span>
+      <% when 'completed' %>
+        <span class="inline-block w-3 h-3 rounded-full bg-green-500"></span>
+      <% when 'failed' %>
+        <span class="inline-block w-3 h-3 rounded-full bg-red-500"></span>
+      <% else %>
+        <span class="inline-block w-3 h-3 rounded-full bg-gray-500"></span>
+      <% end %>
+      <span class="font-semibold"><%= job_application.status.capitalize %></span>
+    </span>
+    <span id="icon-<%= job_application.id %>" class="text-slate-800 transition-transform duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+        <path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd" />
+      </svg>
+    </span>
+  </button>
+  <div id="content-<%= job_application.id %>" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+    <div class="w-full pb-5">
+      <div class="h-8">
+        <%= link_to rails_blob_path(job_application.original_resume, disposition: "attachment")  do %>
+          <span class="mr-0 font-semibold">Original Resume:</span>
+          <span class="text-blue-500"><%= job_application.original_resume.filename %></span>
+        <% end %>
+      </div>
+      <div class="mt-1 h-8 flex gap-20">
+        <% case job_application.status %>
+        <% when 'pending' %>
+          <span class="flex items-center gap-1">
+            <span class="mr-0 font-semibold">Refined Resume:</span>
+            <span
+              class="flex items-center font-semibold"
+            >
+              <%= render partial: 'common/loading-spinner' %>
+            </span>
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="mr-0 font-semibold">Cover Letter:</span>
+            <span
+              class="flex items-center font-semibold"
+            >
+              <%= render partial: 'common/loading-spinner' %>
+            </span>
+          </span>
+        <% when 'processing' %>
+          <span class="flex items-center gap-1">
+            <span class="mr-0 font-semibold">Refined Resume:</span>
+            <span
+              class="flex items-center font-semibold"
+            >
+              <%= render partial: 'common/loading-spinner' %>
+            </span>
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="mr-0 font-semibold">Cover Letter:</span>
+            <span
+              class="flex items-center font-semibold"
+            >
+              <%= render partial: 'common/loading-spinner' %>
+            </span>
+          </span>
+        <% when 'completed' %>
+          <span>
+            <span class="mr-0 font-semibold">Refined Resume:</span>
+            <%= link_to rails_blob_path(job_application.refined_resume, disposition: "attachment")  do %>
+              <span class="text-blue-500"><%= job_application.refined_resume.filename %></span>
+            <% end %>
+          </span>
+          <span>
+            <span class="mr-0 font-semibold">Cover Letter:</span>
+            <%= link_to rails_blob_path(job_application.cover_letter, disposition: "attachment")  do %>
+              <span class="text-blue-500"><%= job_application.cover_letter.filename %></span>
+            <% end %>
+            </span>
+          </span>
+        <% when 'failed' %>
+          <span class="flex items-center gap-1">
+            <span class="mr-0 font-semibold">Refined Resume:</span>
+            <span
+              class="flex items-center text-red-500"
+            >
+              Failed, Please try again
+            </span>
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="mr-0 font-semibold">Cover Letter:</span>
+            <span
+              class="flex items-center text-red-500"
+            >
+              Failed, Please try again
+            </span>
+          </span>
+        <% end %>
+      </div>
+      <div class="mt-1">
+        <details>
+          <summary class="font-semibold">Job description</summary>
+          <p
+            class="mt-1 p-1 rounded text-sm text-slate-700 max-h-40 overflow-y-auto bg-white/35 whitespace-pre-line"
+          >
+            <%= job_application.job_description %>
+          </p>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>

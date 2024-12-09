@@ -1,0 +1,62 @@
+<%= tag.div(flash[:alert], class: "notification fail") if flash[:alert] %>
+<nav class="w-full h-16 flex items-center bg-gradient-to-r from-[#DAD4EC] to-[#F3E7E9]">
+  <h1 class="text-2xl font-semibold px-32">ResuMate</h1>
+</nav>
+<main
+  class="w-full min-h-[calc(100vh-4rem)]
+  bg-gradient-to-r from-[#DAD4EC] to-[#F3E7E9]
+  py-8
+  "
+>
+  <div class="w-3/4 mx-auto">
+    <div class="w-full flex items-center py-4">
+      <div class="grow">
+        <h2 class="text-xl font-semibold">Create New Resume</h2>
+      </div>
+      <div>
+        <%= link_to 'BACK TO', 
+          job_applications_path, 
+          class: "bg-white/65 border-2 border-gray-600 rounded-full px-4 py-2 text-sm font-semibold shadow-lg"
+        %>
+      </div>
+    </div>
+    <hr class="border-[#9BA3C2]" />
+    <%= form_with url: job_applications_path, 
+      multipart: true do |form| 
+    %>
+      <%= form.label :resume, class: "block mt-6 focus:ring-0 focus:outline-none active:ring-0" do %>
+        <span class="block text-lg font-semibold">Resume</span>
+        <%= form.file_field :resume, 
+          required: true,
+          value: params[:resume],
+          class: "text-sm text-slate-900 w-96 mt-2
+            border-2 border-gray-600 rounded-xl
+            file:px-8 file:py-2 file:border-0 file:mr-20
+            file:text-sm file:font-semibold
+            file:bg-white/65 shadow-lg
+            hover:file:bg-violet-100
+          "
+        %>
+      <% end %>
+      <%= form.label :job_description, class: "block mt-6" do %>
+        <span class="block text-lg font-semibold">Job description</span>
+        <%= form.text_area :job_description, 
+          required: true,
+          placeholder: "Enter job description",
+          value: params[:job_description],
+          class: "mt-2 w-full h-64
+            border-2 border-gray-600 rounded-xl
+            focus:ring-0 focus:outline-none 
+            resize-none bg-white/65 shadow-lg
+          "
+        %>
+      <% end %>
+      <%= form.submit "CREATE NEW RESUME",
+        class: "border-2 border-gray-600 rounded-full
+          px-6 py-2 mt-2 text-sm font-semibold
+          bg-white/65 shadow-lg
+        "
+      %>
+    <% end %>
+  </div>
+</main>

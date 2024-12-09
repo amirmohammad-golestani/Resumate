@@ -1,0 +1,312 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+      }
+      .header {
+        width: 100%;
+        height: 12rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #1B2A47;
+      }
+      .header .name {
+        color: #C4B0A1;
+        font-size: 3.25em;
+        font-weight: 500;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+      .header .label {
+        color: #C4B0A1;
+        font-size: 1em;
+        padding: 0;
+        text-align: center;
+        margin: 1rem 0 0 0;
+      }
+
+      .main {
+        background-color: #F5F5F5;
+        width: 100%;
+        display: flex;
+        height: calc(100vh - 12rem);
+        padding: 1rem 0;
+      }
+
+      .aside {
+        width: 35%;
+        height: 100%;
+        padding: 0 1rem;
+        border-right: 1px solid #C4B0A1;
+      }
+
+      .contact {
+        width: 100%;
+        padding: 0 0.75rem;
+        margin: 0;
+        list-style-type: none;
+      }
+
+      .contact li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: small;
+        margin-top: 0.5rem;
+        color: #666666;
+      }
+
+      .educations {
+        font-size: small;
+        width: 100%;
+        padding: 0 0.75rem;
+        margin: 0;
+        list-style-type: none;
+      }
+
+      .educations li {
+        margin-top: 0.5rem;
+      }
+
+      .education {
+        margin: 0;
+        padding: 0;
+      }
+
+      .education_location {
+        font-size: smaller;
+        color: #666666;
+        padding: 0;
+        margin: 0.2rem 0 0 0;
+      }
+
+      .education_year {
+        font-size: smaller;
+        color: #666666;
+        padding: 0;
+        margin: 0.2rem 0 0 0;
+      }
+
+      .skills {
+        font-size: small;
+        width: 100%;
+        padding: 0 0.75rem;
+        margin: 0;
+        list-style-type: none;
+      }
+
+      .skills li {
+        margin: 0.5rem 0 0 0;
+      }
+
+      .skill_title {
+        margin: 0;
+        padding: 0;
+      }
+
+      .skill_data {
+        padding: 0;
+        margin: 0.25rem 0 0 0;
+        color: #666666;
+        white-space: pre-wrap;
+        line-height: 150%;
+      }
+
+      <%# Main Content %>
+
+      .main-content {
+        width: 65%;
+        padding: 0 1rem;
+      }
+
+      .section {
+        margin: 1.5rem 0 0 0;
+      }
+
+      .section-header {
+        padding: 0.5rem 0;
+        margin: 0;
+        width: 100%;
+        font-size: medium;
+        border-bottom: 1px solid #C4B0A1;
+      }
+      .profile-introduction {
+        margin: 1rem 0 0 0;
+        font-size: small;
+        line-height: 150%;
+      }
+
+      .work-experience {
+        margin: 1rem 0 0 0;
+      }
+
+      .work-experience_position {
+        font-size: 0.95em;
+        font-weight: 600;
+        margin: 0;
+        padding: 0;
+      }
+
+      .secondary-information {
+        padding: 0;
+        margin: 0.15rem 0 0 0;
+        font-size: x-small;
+        color: #475569;
+      }
+
+      .work-experience_summary {
+        line-height: 125%;
+        font-size: 0.85em;
+        margin: 0.5rem 0 0 0;
+        padding: 0
+      }
+
+      .work-experience_hightlights {
+        padding: 0 1rem;
+        margin: 0.25rem 0 0 0.5rem;
+        line-height: 125%;
+        font-size: 0.75em;
+        color: #333333;
+      }
+
+      .work-experience_hightlights li {
+        margin: 0.35rem 0 0 0;
+      }
+
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <% if @resume.personal_information.name.presence %>
+        <h1 class="name"><%= @resume.personal_information.name %></h1>
+      <% end %>
+      <% if @resume.resume_label.presence %>
+        <p class="label"><%= @resume.resume_label %></p>
+      <% end %>
+    </header>
+    <main class="main">
+
+      <%# Summary %>
+      <aside class="aside">
+        <article>
+          <h2 class="section-header">CONTACT</h2>
+          <ul class="contact">
+            <% if @resume.personal_information.phone_number.presence %>
+              <li>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#C4B0A1" d="M19.95 21q-3.125 0-6.175-1.362t-5.55-3.863t-3.862-5.55T3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.238t.325.562l.65 3.5q.05.4-.025.675T9.4 8.45L6.975 10.9q.5.925 1.187 1.787t1.513 1.663q.775.775 1.625 1.438T13.1 17l2.35-2.35q.225-.225.588-.337t.712-.063l3.45.7q.35.1.575.363T21 15.9v4.05q0 .45-.3.75t-.75.3"/></svg>
+                </span>
+                <span>
+                  <%= @resume.personal_information.phone_number %>
+                </span>
+              </li>
+            <% end %>
+            <% if @resume.personal_information.email.presence %>
+              <li>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#C4B0A1" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7l8-5V6l-8 5l-8-5v2z"/></svg>
+                </span>
+                <span>
+                  <%= @resume.personal_information.email %>
+                </span>
+              </li>
+            <% end %>
+            <% if @resume.personal_information.location.presence %>
+              <li>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#C4B0A1" d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22"/></svg>
+                </span>
+                <span>
+                  <%= @resume.personal_information.location %>
+                </span>
+              </li>
+            <% end %>
+            <% if @resume.personal_information.url.presence %>
+              <li>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="#C4B0A1" d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2m12 13h-6a24.26 24.26 0 0 0-2.79-10.55A12 12 0 0 1 28 15M16 28a5 5 0 0 1-.67 0A21.85 21.85 0 0 1 12 17h8a21.85 21.85 0 0 1-3.3 11a5 5 0 0 1-.7 0m-4-13a21.85 21.85 0 0 1 3.3-11a6 6 0 0 1 1.34 0A21.85 21.85 0 0 1 20 15Zm.76-10.55A24.26 24.26 0 0 0 10 15H4a12 12 0 0 1 8.79-10.55ZM4.05 17h6a24.26 24.26 0 0 0 2.75 10.55A12 12 0 0 1 4.05 17m15.16 10.55A24.26 24.26 0 0 0 22 17h6a12 12 0 0 1-8.79 10.55"/></svg>
+                </span>
+                <span>
+                  <%= @resume.personal_information.url %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        </article>
+        <article class="section">
+          <h2 class="section-header">EDUCATION</h2>
+          <ul class="educations">
+            <% @resume.educations.each do |education| %>
+              <li>
+                <article>
+                  <h3 class="education">
+
+                    <%= education.field %>
+                  </h3>
+                  <p class="education_location">
+                    <span><%= education.degree %></span>
+                    <span> | <%= education.institution %></span>
+                  </p>
+                  <p class="education_year">
+                    <%= education.start_date%> - <%= education.end_date %>
+                  </p>
+                </article>
+              <li>
+            <% end %>
+          </ul>
+        </article>
+        <article class="section">
+          <h2 class="section-header">EXPERTISE</h2>
+          <ul class="skills">
+            <% @resume.skills.each do |skill| %>
+              <li>
+                <article>
+                  <h3 class="skill_title"><%= skill.category_name %></h3>
+                  <p class="skill_data"><%= skill.data.join("  ") %></p>
+                </article>
+              <li>
+            <% end %>
+          </ul>
+        </article>
+      </aside>
+      <div class="main-content">
+        <article>
+          <h2 class="section-header">PROFESSIONAL PROFILE</h2>
+          <p class="profile-introduction">
+            <%= @resume.personal_information.summary %>
+          </p>
+        </article>
+        <article class="section">
+          <h2 class="section-header">WORK EXPERIENCE</h2>
+          <% @resume.works.each do |work| %>
+            <article class="work-experience">
+              <h3 class="work-experience_position"><%= work.position %></h3>
+              <p class="secondary-information">
+                <span><%= work.company_name%></span>
+                <span>| <%=  work.location %></span>
+              <span>| <%= work.start_date %> - <%= work.end_date %></span>
+              </p>
+              <p class="work-experience_summary"><%= work.summary %></p>
+              <ul class="work-experience_hightlights">
+                <% work.highlights.each do |highlight| %>
+                  <li><%= highlight %></li>
+                <% end %>
+              </ul>
+            </article>
+          <% end %>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<%= tag.div(flash[:alert], class: "notification fail") if flash[:alert] %>
+<%= tag.div(flash[:notice], class: "notification success") if flash[:notice] %>
+
+<main
+  class="w-full min-h-[100vh] 
+  flex justify-center items-center
+  bg-gradient-to-r from-[#DAD4EC] to-[#F3E7E9]
+  "
+>
+  <%= form_with url: session_path, 
+    class: "px-4 py-16
+      flex flex-col 
+      max-w-max mx-auto bg-white rounded-xl shadow-md" do |form|  
+  %>
+    <h2 class="text-4xl text-center font-bold">Login</h2>
+    <%= form.label :email_address, "Email Address", class: "mt-8 font-semibold" %>
+    <%= form.email_field :email_address, 
+      required: true, 
+      autofocus: true, 
+      autocomplete: "username", 
+      placeholder: "Enter your email address", 
+      value: params[:email_address],
+      class: "mt-1 w-96 border-0 border-b-2 border-slate-400 focus:ring-0 text-sm"
+    %>
+    <%= form.label :password, "Password", class: "mt-8 font-semibold" %>
+    <%= form.password_field :password, 
+      required: true, 
+      autocomplete: "current-password",
+      placeholder: "Enter your password",
+      maxlength: 72,
+      class: "mt-1 w-96 border-0 border-b-2 border-slate-400 focus:ring-0 text-sm"
+    %>
+    <%= form.submit "LOGIN",
+      class:"bg-gradient-to-r from-[#DAD4EC] to-[#F3E7E9] mt-12 w-full rounded h-11 font-semibold
+      hover:cursor-pointer"
+    %>
+  <% end %>
+</main>
